@@ -1,12 +1,44 @@
 import {useEffect, useState} from 'react';
+import {auth} from './firebase.js';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+
 
 function Header(props) {
 
-  function criarConta(e) {
-    e.preventDefault();
-    
+  /*
+const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    // ...
+  })
+*/
 
-    // Criar conta firebase
+
+  function criarConta(e) {
+
+    e.preventDefault();
+    const email = document.getElementById('email-cadastro').value;
+    const password = document.getElementById('senha-cadastro').value;
+    const user = document.getElementById('username-cadastro').value;
+
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        alert('Conta criada com sucesso!');
+        let modal = document.querySelector('.modalCriarConta');
+        modal.style.display = "none";
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+
   }
 
   function abrirModalCriarConta(e) {
@@ -32,9 +64,9 @@ function Header(props) {
             <div onClick={()=>fecharModalCriar()} className='close-modal-criar'>X</div>
             <h2>Criar Conta</h2>
             <form onSubmit={(e)=>criarConta(e)}>
-              <input type={"text"} placeholder={"Seu e-mail..."}></input>
-              <input type={"text"} placeholder={"Seu username"}></input>
-              <input type={"password"} placeholder={"Sua senha..."}></input>
+              <input id='email-cadastro' type={"text"} placeholder={"Seu e-mail..."}></input>
+              <input id='username-cadastro' type={"text"} placeholder={"Seu usuário..."}></input>
+              <input id='senha-cadastro' type={"password"} placeholder={"Sua senha..."}></input>
               <input type={"submit"} value={"Criar Conta"}></input>
             </form>
           </div>

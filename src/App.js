@@ -1,7 +1,9 @@
 import './App.css';
-import {db} from './firebase.js';
 import {useEffect, useState} from 'react';
 import Header from './Header';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from "firebase/auth";
+
 
 
 
