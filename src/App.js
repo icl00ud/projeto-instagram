@@ -7,7 +7,7 @@ import Header from './Header';
 
 function App() {
 
-  const [user, setUser] = useState('Israel');
+  const [user, setUser] = useState();
 
   return (
     <div className="App">
